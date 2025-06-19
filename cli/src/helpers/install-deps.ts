@@ -76,9 +76,10 @@ const runInstallCommand = async (
 
 export const installDependencies = async ({
 	projectDir,
-}: { projectDir: string }) => {
+	packageManager,
+}: { projectDir: string; packageManager?: PackageManager }) => {
 	logger.info("Installing dependencies...");
-	const pkgManager = getUserPkgManager();
+	const pkgManager = packageManager || getUserPkgManager();
 
 	const installSpinner = await runInstallCommand(pkgManager, projectDir);
 

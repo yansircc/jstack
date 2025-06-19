@@ -1,51 +1,48 @@
 {
-  "name": "jstack-shared",
-  "version": "0.0.4",
-  "description": "",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "type": "module",
-  "scripts": {
-    "build": "tsup"
-  },
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    }
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "dist",
-    "package.json"
-  ],
-  "keywords": [],
-  "author": "Josh tried coding",
-  "license": "ISC",
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250619.0",
-    "@types/node": "^22.15.32",
-    "dotenv": "^16.5.0",
-    "hono": "^4.8.0",
-    "superjson": "^2.2.2",
-    "ts-node": "^10.9.2",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.3",
-    "zod": "^3.25.67"
-  },
-  "peerDependencies": {
-    "zod": ">=3.24.1",
-    "hono": ">=4.6.17",
-    "react": "^19.1.0"
-  }
+	"name": "jstack-shared",
+	"version": "0.0.4",
+	"description": "",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"build": "tsup"
+	},
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": ["dist", "package.json"],
+	"keywords": [],
+	"author": "Josh tried coding",
+	"license": "ISC",
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20250619.0",
+		"@types/node": "^22.15.32",
+		"dotenv": "^16.5.0",
+		"hono": "^4.8.0",
+		"superjson": "^2.2.2",
+		"ts-node": "^10.9.2",
+		"tsup": "^8.5.0",
+		"typescript": "^5.8.3",
+		"zod": "^3.25.67"
+	},
+	"peerDependencies": {
+		"zod": ">=3.24.1",
+		"hono": ">=4.6.17",
+		"react": "^19.1.0"
+	}
 }

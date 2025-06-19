@@ -1,0 +1,7 @@
+# Development - Use Wrangler dev server for API
+NEXT_PUBLIC_API_URL= "http://localhost:8080/api"
+
+# Remote database access (for drizzle studio)
+CLOUDFLARE_ACCOUNT_ID= ""
+CLOUDFLARE_D1_TOKEN= ""
+CLOUDFLARE_DATABASE_ID= ""

@@ -1,18 +1,19 @@
-import { getUserPkgManager } from "@/utils/get-user-pkg-manager.js";
 import { intro, isCancel, outro, select, text } from "@clack/prompts";
 import color from "picocolors";
 
 export interface CliResults {
 	projectName: string;
 	orm: "none" | "drizzle" | undefined;
-	dialect?: "postgres" | undefined;
+	dialect?: "postgres" | "sqlite" | undefined;
 	provider?:
 		| "neon"
 		| "postgres"
 		| "vercel-postgres"
 		| "planetscale"
+		| "cloudflare-d1"
 		| undefined;
 	noInstall?: boolean;
+	packageManager?: "npm" | "pnpm" | "yarn" | "bun";
 }
 
 export type Dialect = CliResults["dialect"];
@@ -62,28 +63,63 @@ export async function runCli(): Promise<CliResults | undefined> {
 	let dialect = undefined;
 	let provider = undefined;
 	if (orm === "drizzle") {
-		dialect = "postgres" as const; // Only offering postgres
-
-		provider = await select({
-			message: "Which Postgres provider would you like to use?",
+		const databaseType = await select<"postgres" | "sqlite">({
+			message: "Which database type would you like to use?",
 			options: [
 				{ value: "postgres", label: "PostgreSQL" },
-				{ value: "neon", label: "Neon" },
-				{ value: "vercel-postgres", label: "Vercel Postgres" },
+				{ value: "sqlite", label: "SQLite (Cloudflare D1)" },
 			],
 		});
 
-		if (isCancel(provider)) {
+		if (isCancel(databaseType)) {
 			outro("Setup cancelled.");
 			return undefined;
+		}
+
+		if (databaseType === "postgres") {
+			dialect = "postgres" as const;
+			provider = await select({
+				message: "Which Postgres provider would you like to use?",
+				options: [
+					{ value: "postgres", label: "PostgreSQL" },
+					{ value: "neon", label: "Neon" },
+					{ value: "vercel-postgres", label: "Vercel Postgres" },
+				],
+			});
+
+			if (isCancel(provider)) {
+				outro("Setup cancelled.");
+				return undefined;
+			}
+		} else {
+			dialect = "sqlite" as const;
+			provider = "cloudflare-d1" as const;
 		}
 	}
 
 	let noInstall = noInstallFlag;
+	let packageManager: "npm" | "pnpm" | "yarn" | "bun" | undefined;
+
 	if (!noInstall) {
-		const pkgManager = getUserPkgManager();
+		const selectedPackageManager = await select<"npm" | "pnpm" | "yarn" | "bun">({
+			message: "Which package manager would you like to use?",
+			options: [
+				{ value: "npm", label: "npm" },
+				{ value: "pnpm", label: "pnpm" },
+				{ value: "yarn", label: "yarn" },
+				{ value: "bun", label: "bun" },
+			],
+		});
+
+		if (isCancel(selectedPackageManager)) {
+			outro("Setup cancelled.");
+			return undefined;
+		}
+		
+		packageManager = selectedPackageManager;
+
 		const shouldInstall = await select({
-			message: `Should we run '${pkgManager}${pkgManager === "yarn" ? "" : " install"}' for you?`,
+			message: `Should we run '${packageManager}${packageManager === "yarn" ? "" : " install"}' for you?`,
 			options: [
 				{ value: false, label: "Yes" },
 				{ value: true, label: "No" },
@@ -104,5 +140,6 @@ export async function runCli(): Promise<CliResults | undefined> {
 		dialect,
 		provider,
 		noInstall,
+		packageManager,
 	};
 }

@@ -5,13 +5,14 @@ import { noOrmInstaller } from "./no-orm.js";
 import { planetscaleInstaller } from "./planetscale.js";
 import { postgresInstaller } from "./postgres.js";
 import { vercelPostgresInstaller } from "./vercel-postgres.js";
+import { cloudflareD1Installer } from "./cloudflare-d1.js";
 
 // Turning this into a const allows the list to be iterated over for programmatically creating prompt options
 // Should increase extensibility in the future
 export const orms = ["none", "drizzle"] as const;
 export type Orm = (typeof orms)[number];
 
-export const dialects = ["postgres"] as const;
+export const dialects = ["postgres", "sqlite"] as const;
 export type Dialect = (typeof dialects)[number];
 
 export const providers = [
@@ -19,6 +20,7 @@ export const providers = [
 	"neon",
 	"vercel-postgres",
 	"planetscale",
+	"cloudflare-d1",
 ] as const;
 export type Provider = (typeof providers)[number];
 
@@ -47,7 +49,7 @@ export interface InstallerOptions {
 	databaseProvider: Provider;
 }
 
-export type Installer = (opts: InstallerOptions) => void;
+export type Installer = (opts: InstallerOptions) => void | Promise<void>;
 
 export const buildInstallerMap = (
 	selectedOrm: Orm = "none",
@@ -79,6 +81,10 @@ export const buildInstallerMap = (
 		planetscale: {
 			inUse: selectedProvider === "planetscale",
 			installer: planetscaleInstaller,
+		},
+		"cloudflare-d1": {
+			inUse: selectedProvider === "cloudflare-d1",
+			installer: cloudflareD1Installer,
 		},
 	},
 });

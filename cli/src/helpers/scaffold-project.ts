@@ -35,7 +35,7 @@ export const scaffoldProject = async ({
 		databaseProvider,
 	});
 
-	installPackages({
+	await installPackages({
 		projectDir,
 		pkgManager,
 		noInstall: false,

@@ -1,0 +1,47 @@
+{
+	"name": "ystack",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"build": "next build",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "wrangler d1 migrations apply DB",
+		"db:push": "drizzle-kit push",
+		"db:push:local": "wrangler d1 migrations apply DB --local",
+		"db:push:remote": "wrangler d1 migrations apply DB --remote",
+		"db:studio": "drizzle-kit studio",
+		"dev": "next dev",
+		"dev:wrangler": "wrangler dev --local --persist-to .wrangler/state",
+		"lint": "biome check",
+		"lint:fix": "biome check --write .",
+		"typecheck": "tsc --noEmit",
+		"start": "next start",
+		"deploy": "wrangler deploy"
+	},
+	"dependencies": {
+		"@tailwindcss/postcss": "^4.1.10",
+		"@tanstack/react-query": "^5.80.10",
+		"clsx": "^2.1.1",
+		"hono": "^4.8.0",
+		"jstack": "^1.1.1",
+		"next": "^15.3.4",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"superjson": "^2.2.2",
+		"tailwind-merge": "^3.3.1",
+		"zod": "^3.25.67"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.0.0",
+		"@cloudflare/workers-types": "^4.20250619.0",
+		"@types/node": "^24.0.3",
+		"@types/react": "^19.1.8",
+		"@types/react-dom": "^19.1.6",
+		"drizzle-kit": "^0.31.1",
+		"drizzle-orm": "^0.44.2",
+		"postcss": "^8.5.6",
+		"tailwindcss": "^4.1.10",
+		"typescript": "^5.8.3",
+		"wrangler": "^4.20.3"
+	}
+}

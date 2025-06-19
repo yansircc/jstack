@@ -16,7 +16,7 @@ const main = async () => {
 		return;
 	}
 
-	const { projectName, orm, dialect, provider } = results;
+	const { projectName, orm, dialect, provider, packageManager } = results;
 
 	const installers = buildInstallerMap(orm, provider);
 
@@ -35,8 +35,8 @@ const main = async () => {
 		spaces: 2,
 	});
 
-	if (!results.noInstall) {
-		await installDependencies({ projectDir });
+	if (!results.noInstall && packageManager) {
+		await installDependencies({ projectDir, packageManager });
 	}
 
 	process.exit(0);
