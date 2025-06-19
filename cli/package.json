@@ -1,46 +1,42 @@
 {
-  "name": "create-ystack-app",
-  "version": "0.2.8",
-  "description": "CLI tool to create a new JStack application",
-  "main": "dist/index.js",
-  "type": "module",
-  "exports": "./dist/index.js",
-  "files": [
-    "dist",
-    "template",
-    "package.json"
-  ],
-  "bin": {
-    "create-jstack-app": "./dist/index.js"
-  },
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "start": "node dist/index.js",
-    "copy-base-template": "tsx scripts/copy-base-template.ts"
-  },
-  "keywords": [],
-  "author": "Josh tried coding",
-  "license": "ISC",
-  "dependencies": {
-    "@clack/prompts": "^0.8.2",
-    "chalk": "^5.4.1",
-    "execa": "^9.6.0",
-    "fs-extra": "^11.3.0",
-    "hono": "^4.8.0",
-    "jstack": "^1.1.1",
-    "ora": "^8.2.0",
-    "sort-package-json": "^2.15.1",
-    "tsup": "^8.5.0"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.15.32",
-    "boxen": "^8.0.1",
-    "dotenv": "^16.5.0",
-    "drizzle-kit": "^0.30.6",
-    "postgres": "^3.4.7",
-    "type-fest": "^4.41.0",
-    "typescript": "^5.8.3"
-  }
+	"name": "create-ystack-app",
+	"version": "0.2.8",
+	"description": "CLI tool to create a new JStack application",
+	"main": "dist/index.js",
+	"type": "module",
+	"exports": "./dist/index.js",
+	"files": ["dist", "template", "package.json"],
+	"bin": {
+		"create-jstack-app": "./dist/index.js"
+	},
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"start": "node dist/index.js",
+		"copy-base-template": "tsx scripts/copy-base-template.ts"
+	},
+	"keywords": [],
+	"author": "Josh tried coding",
+	"license": "ISC",
+	"dependencies": {
+		"@clack/prompts": "^0.8.2",
+		"chalk": "^5.4.1",
+		"execa": "^9.6.0",
+		"fs-extra": "^11.3.0",
+		"hono": "^4.8.0",
+		"jstack": "^1.1.1",
+		"ora": "^8.2.0",
+		"sort-package-json": "^2.15.1",
+		"tsup": "^8.5.0"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^11.0.4",
+		"@types/node": "^22.15.32",
+		"boxen": "^8.0.1",
+		"dotenv": "^16.5.0",
+		"drizzle-kit": "^0.30.6",
+		"postgres": "^3.4.7",
+		"type-fest": "^4.41.0",
+		"typescript": "^5.8.3"
+	}
 }
