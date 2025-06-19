@@ -1,5 +1,5 @@
 {
-  "name": "create-jstack-app",
+  "name": "create-ystack-app",
   "version": "0.2.8",
   "description": "CLI tool to create a new JStack application",
   "main": "dist/index.js",
