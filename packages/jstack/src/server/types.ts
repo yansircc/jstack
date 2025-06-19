@@ -1,6 +1,7 @@
 import type { Context, TypedResponse } from "hono";
 import type superjson from "superjson";
-import type { z } from "zod";
+import type { z as zV3 } from "zod";
+import type { z as zV4 } from "zod/v4";
 
 import type { Env, Input } from "hono/types";
 import type { StatusCode } from "hono/utils/http-status";
@@ -113,7 +114,7 @@ export type GetOperation<
 	E extends Env = any,
 > = {
 	type: "get";
-	schema?: z.ZodType<Schema> | void;
+	schema?: zV3.ZodType<Schema> | zV4.ZodType<Schema> | void;
 	handler: <Input>({
 		c,
 		ctx,
@@ -134,7 +135,7 @@ export type PostOperation<
 	E extends Env = any,
 > = {
 	type: "post";
-	schema?: z.ZodType<Schema> | void;
+	schema?: zV3.ZodType<Schema> | zV4.ZodType<Schema> | void;
 	handler: <Input, Output>({
 		ctx,
 		c,
@@ -156,7 +157,15 @@ export type OperationType<
 	| WebSocketOperation<I, O, E>;
 
 export type InferInput<T> = T extends OperationType<infer I, any>
-	? I extends z.ZodTypeAny
-		? z.infer<I>
-		: I
+	? InferZodType<I, I>
 	: void;
+
+export type InferZodType<S, T = void> = S extends void
+	? T
+	: S extends zV3.ZodTypeAny
+		? zV3.infer<S>
+		: S extends zV4.ZodType
+			? zV4.infer<S>
+			: T;
+
+export type ZodAny = zV3.ZodTypeAny | zV4.ZodType;
