@@ -1,52 +1,52 @@
-import { useEffect, useRef } from "react"
-import { ClientSocket, SystemEvents } from "jstack-shared"
+import type { ClientSocket, SystemEvents } from "jstack-shared";
+import { useEffect, useRef } from "react";
 
 export function useWebSocket<
-  IncomingEvents extends Partial<SystemEvents> & Record<string, unknown>,
+	IncomingEvents extends Partial<SystemEvents> & Record<string, unknown>,
 >(
-  socket: ClientSocket<IncomingEvents & SystemEvents, any>,
-  events: Partial<{
-    [K in keyof (IncomingEvents & SystemEvents)]: (
-      data: (IncomingEvents & SystemEvents)[K]
-    ) => void
-  }>,
-  opts: { enabled?: boolean } = { enabled: true }
+	socket: ClientSocket<IncomingEvents & SystemEvents, any>,
+	events: Partial<{
+		[K in keyof (IncomingEvents & SystemEvents)]: (
+			data: (IncomingEvents & SystemEvents)[K],
+		) => void;
+	}>,
+	opts: { enabled?: boolean } = { enabled: true },
 ) {
-  const eventsRef = useRef(events)
-  eventsRef.current = events
+	const eventsRef = useRef(events);
+	eventsRef.current = events;
 
-  useEffect(() => {
-    if (opts?.enabled === false) {
-      return
-    }
+	useEffect(() => {
+		if (opts?.enabled === false) {
+			return;
+		}
 
-    const defaultHandlers = {
-      onConnect: () => {},
-      onError: () => {},
-    }
+		const defaultHandlers = {
+			onConnect: () => {},
+			onError: () => {},
+		};
 
-    const mergedEvents = {
-      ...defaultHandlers,
-      ...events,
-    }
+		const mergedEvents = {
+			...defaultHandlers,
+			...events,
+		};
 
-    const eventNames = Object.keys(mergedEvents) as Array<
-      keyof IncomingEvents & SystemEvents
-    >
+		const eventNames = Object.keys(mergedEvents) as Array<
+			keyof IncomingEvents & SystemEvents
+		>;
 
-    eventNames.forEach((eventName) => {
-      const handler = mergedEvents[eventName]
+		eventNames.forEach((eventName) => {
+			const handler = mergedEvents[eventName];
 
-      if (handler) {
-        socket.on(eventName, handler)
-      }
-    })
+			if (handler) {
+				socket.on(eventName, handler);
+			}
+		});
 
-    return () => {
-      eventNames.forEach((eventName) => {
-        const handler = mergedEvents[eventName]
-        socket.off(eventName, handler)
-      })
-    }
-  }, [opts?.enabled])
+		return () => {
+			eventNames.forEach((eventName) => {
+				const handler = mergedEvents[eventName];
+				socket.off(eventName, handler);
+			});
+		};
+	}, [opts?.enabled]);
 }

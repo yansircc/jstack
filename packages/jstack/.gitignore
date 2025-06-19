@@ -33,3 +33,7 @@ coverage/
 
 # npm cache
 .npm
+
+# Claude
+/.claude/
+CLAUDE.md
