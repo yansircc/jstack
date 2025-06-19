@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import * as p from "@clack/prompts";
 import chalk from "chalk";
 import fs from "fs-extra";

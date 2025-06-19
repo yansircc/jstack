@@ -1,7 +1,7 @@
 import { jstack } from "jstack";
 
 interface Env {
-	Bindings: {};
+	Bindings: Record<string, unknown>;
 }
 
 export const j = jstack.init<Env>();

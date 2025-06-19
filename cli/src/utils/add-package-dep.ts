@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import fs from "fs-extra";
 import sortPackageJson from "sort-package-json";
 import type { PackageJson } from "type-fest";

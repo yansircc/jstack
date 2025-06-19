@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import type { Dialect, Orm } from "@/cli/index.js";
 import {
 	type InstallerMap,

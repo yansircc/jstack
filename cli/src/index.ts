@@ -1,6 +1,6 @@
 // #!/usr/bin/env node
 
-import path from "path";
+import path from "node:path";
 import fs from "fs-extra";
 
 import { runCli } from "./cli/index.js";
